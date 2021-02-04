@@ -1,5 +1,6 @@
 package com.kiran.student.response
 
-class LoginResponse{
-
-}
+data class LoginResponse(
+    val success : Boolean? = null,
+    val token : String? = null
+)

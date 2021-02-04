@@ -16,11 +16,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.StudentAPI">
-        <activity android:name=".ui.RegisterActivity"></activity>
-        <activity android:name=".ui.LoginActivity" >
-
-        </activity>
+        android:theme="@style/Theme.StudentAPI"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".ui.ViewStudentActivity"></activity>
+        <activity android:name=".ui.AddstudentActivity" />
+        <activity android:name=".ui.DashboardActivity" />
+        <activity android:name=".ui.RegisterActivity" />
+        <activity android:name=".ui.LoginActivity" />
         <activity android:name=".ui.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

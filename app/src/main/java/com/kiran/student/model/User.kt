@@ -1,4 +1,4 @@
-package com.kiran.student.entity
+package com.kiran.student.model
 
 data class User(
     val _id : String? = null,
