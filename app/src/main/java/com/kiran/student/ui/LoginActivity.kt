@@ -76,7 +76,6 @@ class LoginActivity : AppCompatActivity() {
         tvRegister = findViewById(R.id.tvRegister)
         chkRememberMe = findViewById(R.id.chkRememberMe)
         linearLayout = findViewById(R.id.linearLayout)
-
     }
 
     private fun checkRunTimePermission() {
@@ -117,7 +116,6 @@ class LoginActivity : AppCompatActivity() {
                     ServiceBuilder.token = response.token
                     //Save username and password in shared preferences
                     saveUsernamePassword()
-
                     startActivity(
                         Intent(
                             this@LoginActivity,

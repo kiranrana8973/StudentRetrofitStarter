@@ -8,7 +8,7 @@ object ServiceBuilder {
 
     private const val BASE_URL = "http://10.0.2.2:3000/api/v1/"
 
-    // private const val BASE_URL = "http://192.168.0.109:3000/api/v1/"
+    //private const val BASE_URL = "http://192.168.137.193:3000/api/v1/"
     var token: String? = null
     private val okHttp = OkHttpClient.Builder()
 
@@ -27,7 +27,6 @@ object ServiceBuilder {
     // Load image path
     fun loadImagePath(): String {
         val arr = BASE_URL.split("/").toTypedArray()
-        val a = arr[0] + "/" + arr[1] + arr[2] + "/uploads/"
-        return a
+        return arr[0] + "/" + arr[1] + arr[2] + "/uploads/"
     }
 }
