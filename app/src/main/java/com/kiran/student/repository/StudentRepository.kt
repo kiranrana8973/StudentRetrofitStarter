@@ -14,7 +14,6 @@ class StudentRepository : MyApiRequest() {
     private val studentAPI = ServiceBuilder.buildService(StudentAPI::class.java)
 
     suspend fun insertStudent(student: Student): AddStudentResponse {
-        val a = ServiceBuilder.token!!
         return apiRequest {
             studentAPI.insertStudent(ServiceBuilder.token!!, student)
         }
@@ -31,6 +30,4 @@ class StudentRepository : MyApiRequest() {
             studentAPI.deleteStudent(ServiceBuilder.token!!, id)
         }
     }
-
-
 }

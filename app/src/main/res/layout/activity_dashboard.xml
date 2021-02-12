@@ -10,7 +10,7 @@
         android:id="@+id/btnAddStudent"
         android:layout_width="212dp"
         android:layout_height="181dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="28dp"
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -22,11 +22,22 @@
         android:id="@+id/btnViewStudent"
         android:layout_width="199dp"
         android:layout_height="186dp"
-        android:layout_marginTop="88dp"
+        android:layout_marginTop="28dp"
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnAddStudent"
         app:srcCompat="@drawable/viewstudent" />
+
+    <ImageButton
+        android:id="@+id/btnGoogleMap"
+        android:layout_width="199dp"
+        android:layout_height="186dp"
+        android:layout_marginTop="32dp"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.528"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnViewStudent"
+        app:srcCompat="@drawable/googlemap" />
 </androidx.constraintlayout.widget.ConstraintLayout>

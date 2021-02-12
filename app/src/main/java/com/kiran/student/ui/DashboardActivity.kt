@@ -14,6 +14,7 @@ class DashboardActivity : AppCompatActivity() {
 
     private lateinit var btnAddStudent : AppCompatImageButton
     private lateinit var btnViewStudent : AppCompatImageButton
+    private lateinit var btnGoogleMap : AppCompatImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +22,7 @@ class DashboardActivity : AppCompatActivity() {
 
         btnAddStudent = findViewById(R.id.btnAddStudent)
         btnViewStudent = findViewById(R.id.btnViewStudent)
+        btnGoogleMap = findViewById(R.id.btnGoogleMap)
 
         btnAddStudent.setOnClickListener {
             startActivity(Intent(this@DashboardActivity,AddstudentActivity::class.java))
@@ -28,6 +30,10 @@ class DashboardActivity : AppCompatActivity() {
 
         btnViewStudent.setOnClickListener {
             startActivity(Intent(this@DashboardActivity,ViewStudentActivity::class.java))
+        }
+
+        btnGoogleMap.setOnClickListener {
+            startActivity(Intent(this@DashboardActivity,MapsActivity::class.java))
         }
     }
 }

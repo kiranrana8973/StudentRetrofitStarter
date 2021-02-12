@@ -14,7 +14,7 @@ class StudentManagementTest {
     private lateinit var userRepository: UserRepository
     private lateinit var studentRepository: StudentRepository
 
-    // User testing
+    // -----------------------------User Testing-----------------------------
     @Test
     fun checkLogin() = runBlocking {
         userRepository = UserRepository()
@@ -35,18 +35,16 @@ class StudentManagementTest {
         Assert.assertEquals(expectedResult, actualResult)
     }
 
-    // Student Testing
+    // -----------------------------Student Testing-----------------------------
     @Test
     fun addStudent() = runBlocking {
         userRepository = UserRepository()
         val student =
             Student(fullname = "fullName", age = 33, gender = "gender", address = "address")
-
         studentRepository = StudentRepository()
         ServiceBuilder.token ="Bearer " + userRepository.checkUser("kiran","kiran123").token
         val expectedResult = true
         val actualResult = studentRepository.insertStudent(student).success
-
         Assert.assertEquals(expectedResult, actualResult)
     }
 }

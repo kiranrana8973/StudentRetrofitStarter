@@ -23,7 +23,6 @@ interface StudentAPI {
         @Header("Authorization") token: String
     ): Response<StudentResponse>
 
-
     @DELETE("student/{id}")
     suspend fun deleteStudent(
         @Header("Authorization") token: String,
