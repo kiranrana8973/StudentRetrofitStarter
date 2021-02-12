@@ -141,7 +141,8 @@ class AddstudentActivity : AppCompatActivity() {
             }
         }
 
-        val student = Student(fullname = fullName, age = age, gender = gender, address = address)
+        val student = Student(fullname = fullName, age = age,
+            gender = gender, address = address)
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -150,15 +151,14 @@ class AddstudentActivity : AppCompatActivity() {
                 if (response.success == true) {
                     if (imageUrl != null) {
                         uploadImage(response.data!!._id!!)
-                        withContext(Dispatchers.Main) {
-                            Toast.makeText(
-                                this@AddstudentActivity,
-                                "Student Added",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
                     }
-
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(
+                            this@AddstudentActivity,
+                            "Student Added",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
             } catch (ex: Exception) {
                 withContext(Dispatchers.Main) {

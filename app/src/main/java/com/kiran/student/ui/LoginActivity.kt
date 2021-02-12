@@ -2,10 +2,10 @@ package com.kiran.student.ui
 
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.core.app.ActivityCompat
@@ -113,7 +113,7 @@ class LoginActivity : AppCompatActivity() {
                 val response = repository.checkUser(username, password)
                 if (response.success == true) {
                     // Save token
-                    ServiceBuilder.token = response.token
+                    ServiceBuilder.token = "Bearer ${response.token}"
                     //Save username and password in shared preferences
                     saveUsernamePassword()
                     startActivity(
@@ -138,8 +138,10 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
             } catch (ex: Exception) {
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(
+                    withContext(Dispatchers.Main) {
+                        Log.d("Error",ex.toString())
+
+                        Toast.makeText(
                         this@LoginActivity,
                         ex.toString(),
                         Toast.LENGTH_SHORT

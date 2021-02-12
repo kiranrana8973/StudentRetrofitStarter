@@ -6,6 +6,6 @@ data class Student(
     val age: Int? = null,
     val gender: String? = null,
     val address: String? = null,
-    val photo: String?= null
+    val photo: String? = null,
 
-)
+    )

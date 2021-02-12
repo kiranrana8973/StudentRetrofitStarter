@@ -23,11 +23,16 @@ interface StudentAPI {
         @Header("Authorization") token: String
     ): Response<StudentResponse>
 
+
     @DELETE("student/{id}")
     suspend fun deleteStudent(
         @Header("Authorization") token: String,
         @Path("id") id: String
     ): Response<DeleteStudentResponse>
+
+
+
+
 
     @Multipart
     @PUT("student/{id}/photo")
