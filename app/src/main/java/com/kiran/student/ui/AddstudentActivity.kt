@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.widget.*
 import com.google.android.material.textfield.TextInputEditText
 import com.kiran.student.R
@@ -16,8 +17,10 @@ import com.kiran.student.api.StudentAPI
 import com.kiran.student.model.Student
 import com.kiran.student.repository.StudentRepository
 import com.kiran.student.response.ImageResponse
+import com.kiran.student.response.StudentResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType
@@ -173,46 +176,75 @@ class AddstudentActivity : AppCompatActivity() {
 
     }
 
+//    private fun uploadImage(studentId: String) {
+//        if (imageUrl != null) {
+//            val file = File(imageUrl!!)
+//
+//            val reqFile =
+//                RequestBody.create(MediaType.parse("multipart/form-data"), file)
+//            val body =
+//                MultipartBody.Part.createFormData("file", file.name, reqFile)
+//
+//            val api = ServiceBuilder.buildService(StudentAPI::class.java)
+//            val call = api.uploadImage(ServiceBuilder.token!!, studentId, body)
+//
+//            call.enqueue(object : retrofit2.Callback<ImageResponse> {
+//                override fun onResponse(
+//                    call: Call<ImageResponse>,
+//                    response: Response<ImageResponse>
+//                ) {
+//                    if (response.isSuccessful) {
+//                        val res = response.body()!!
+//                    } else {
+//                        Toast.makeText(
+//                            this@AddstudentActivity,
+//                            "Error body ${response.code()} , msg ${response.message()}",
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//                        return
+//                    }
+//                }
+//
+//                override fun onFailure(call: Call<ImageResponse>, t: Throwable) {
+//                    Toast.makeText(
+//                        this@AddstudentActivity,
+//                        "a Error ${t.message}",
+//                        Toast.LENGTH_SHORT
+//                    )
+//                        .show()
+//                }
+//            })
+//        }
+//    }
+
     private fun uploadImage(studentId: String) {
         if (imageUrl != null) {
             val file = File(imageUrl!!)
-
             val reqFile =
                 RequestBody.create(MediaType.parse("multipart/form-data"), file)
             val body =
                 MultipartBody.Part.createFormData("file", file.name, reqFile)
 
-            val api = ServiceBuilder.buildService(StudentAPI::class.java)
-            val call = api.uploadImage(ServiceBuilder.token!!, studentId, body)
-
-            call.enqueue(object : retrofit2.Callback<ImageResponse> {
-                override fun onResponse(
-                    call: Call<ImageResponse>,
-                    response: Response<ImageResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        val res = response.body()!!
-                    } else {
-                        Toast.makeText(
-                            this@AddstudentActivity,
-                            "Error body ${response.code()} , msg ${response.message()}",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        return
+            CoroutineScope(Dispatchers.IO).launch {
+                try{
+                    val studentRepository = StudentRepository()
+                    val response = studentRepository.uploadImage(studentId,body)
+                    if(response.success==true){
+                        withContext(Main){
+                            Toast.makeText(this@AddstudentActivity, "Uploaded", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }catch(ex : Exception){
+                    withContext(Main){
+                        Log.d("Mero Error ", ex.localizedMessage)
+                        Toast.makeText(this@AddstudentActivity, ex.localizedMessage, Toast.LENGTH_SHORT).show()
                     }
                 }
+            }
 
-                override fun onFailure(call: Call<ImageResponse>, t: Throwable) {
-                    Toast.makeText(
-                        this@AddstudentActivity,
-                        "a Error ${t.message}",
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
-                }
-            })
         }
     }
+
 
     private fun bitmapToFile(
         bitmap: Bitmap,

@@ -33,7 +33,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     .title(location.markerName)
             )
         }
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(27.7061949, 85.3300394)))
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(27.704675, 85.329471)))
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15F))
         mMap.uiSettings.isZoomControlsEnabled = true
     }

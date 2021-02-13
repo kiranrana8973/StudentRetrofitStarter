@@ -30,14 +30,19 @@ interface StudentAPI {
     ): Response<DeleteStudentResponse>
 
 
-
-
+//    @Multipart
+//    @PUT("student/{id}/photo")
+//    fun uploadImage(
+//        @Header("Authorization") token: String,
+//        @Path("id") id: String,
+//        @Part file: MultipartBody.Part
+//    ): Call<ImageResponse>
 
     @Multipart
     @PUT("student/{id}/photo")
-    fun uploadImage(
+    suspend fun uploadImage(
         @Header("Authorization") token: String,
         @Path("id") id: String,
         @Part file: MultipartBody.Part
-    ): Call<ImageResponse>
+    ): Response<ImageResponse>
 }
