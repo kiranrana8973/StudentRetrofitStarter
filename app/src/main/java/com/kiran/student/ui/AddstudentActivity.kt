@@ -46,10 +46,6 @@ class AddstudentActivity : AppCompatActivity() {
     private lateinit var btnSave: Button
     private lateinit var imgProfile: ImageView
 
-    private var REQUEST_GALLERY_CODE = 0
-    private var REQUEST_CAMERA_CODE = 1
-    private var imageUrl: String? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_addstudent)
@@ -72,6 +68,56 @@ class AddstudentActivity : AppCompatActivity() {
         }
     }
 
+    private fun saveStudent() {
+        val fullName = etFullName.text.toString()
+        val age = etAge.text.toString().toInt()
+        val address = etAddress.text.toString()
+        var gender = ""
+        when {
+            rdoFemale.isChecked -> {
+                gender = "Female"
+            }
+            rdoMale.isChecked -> {
+                gender = "Male"
+            }
+            rdoOthers.isChecked -> {
+                gender = "Others"
+            }
+        }
+        val student =
+            Student(
+                fullname = fullName, age = age,
+                gender = gender, address = address
+            )
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val studentRepository = StudentRepository()
+                val response = studentRepository.insertStudent(student)
+                if (response.success == true) {
+                    if (imageUrl != null) {
+                        uploadImage(response.data!!._id!!)
+                    }
+                    withContext(Main) {
+                        Toast.makeText(
+                            this@AddstudentActivity,
+                            "Student Added",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            } catch (ex: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(
+                        this@AddstudentActivity,
+                        ex.toString(),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+
+    }
+
     // Load pop up menu
     private fun loadPopUpMenu() {
         val popupMenu = PopupMenu(this@AddstudentActivity, imgProfile)
@@ -89,10 +135,27 @@ class AddstudentActivity : AppCompatActivity() {
         popupMenu.show()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK) {
+    private var REQUEST_GALLERY_CODE = 0
+    private var REQUEST_CAMERA_CODE = 1
+    private var imageUrl: String? = null
 
+    private fun openGallery() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, REQUEST_GALLERY_CODE)
+    }
+
+    private fun openCamera() {
+        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        startActivityForResult(cameraIntent, REQUEST_CAMERA_CODE)
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK) {
             if (requestCode == REQUEST_GALLERY_CODE && data != null) {
                 val selectedImage = data.data
                 val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
@@ -116,64 +179,39 @@ class AddstudentActivity : AppCompatActivity() {
         }
     }
 
-    private fun openGallery() {
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*"
-        startActivityForResult(intent, REQUEST_GALLERY_CODE)
-    }
 
-    private fun openCamera() {
-        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        startActivityForResult(cameraIntent, REQUEST_CAMERA_CODE)
-    }
+    private fun uploadImage(studentId: String) {
+        if (imageUrl != null) {
+            val file = File(imageUrl!!)
+            val reqFile =
+                RequestBody.create(MediaType.parse("multipart/form-data"), file)
+            val body =
+                MultipartBody.Part.createFormData("file", file.name, reqFile)
 
-    private fun saveStudent() {
-        val fullName = etFullName.text.toString()
-        val age = etAge.text.toString().toInt()
-        val address = etAddress.text.toString()
-        var gender = ""
-        when {
-            rdoFemale.isChecked -> {
-                gender = "Female"
-            }
-            rdoMale.isChecked -> {
-                gender = "Male"
-            }
-            rdoOthers.isChecked -> {
-                gender = "Others"
-            }
-        }
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    val studentRepository = StudentRepository()
+                    val response = studentRepository.uploadImage(studentId, body)
+                    if (response.success == true) {
 
-        val student = Student(fullname = fullName, age = age,
-            gender = gender, address = address)
-
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val studentRepository = StudentRepository()
-                val response = studentRepository.insertStudent(student)
-                if (response.success == true) {
-                    if (imageUrl != null) {
-                        uploadImage(response.data!!._id!!)
+                        withContext(Main) {
+                            Toast.makeText(this@AddstudentActivity, "Uploaded", Toast.LENGTH_SHORT)
+                                .show()
+                        }
                     }
-                    withContext(Dispatchers.Main) {
+                } catch (ex: Exception) {
+                    withContext(Main) {
+                        Log.d("Mero Error ", ex.localizedMessage)
                         Toast.makeText(
                             this@AddstudentActivity,
-                            "Student Added",
+                            ex.localizedMessage,
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
-            } catch (ex: Exception) {
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(
-                        this@AddstudentActivity,
-                        ex.toString(),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
             }
-        }
 
+        }
     }
 
 //    private fun uploadImage(studentId: String) {
@@ -216,34 +254,6 @@ class AddstudentActivity : AppCompatActivity() {
 //            })
 //        }
 //    }
-
-    private fun uploadImage(studentId: String) {
-        if (imageUrl != null) {
-            val file = File(imageUrl!!)
-            val reqFile =
-                RequestBody.create(MediaType.parse("multipart/form-data"), file)
-            val body =
-                MultipartBody.Part.createFormData("file", file.name, reqFile)
-
-            CoroutineScope(Dispatchers.IO).launch {
-                try{
-                    val studentRepository = StudentRepository()
-                    val response = studentRepository.uploadImage(studentId,body)
-                    if(response.success==true){
-                        withContext(Main){
-                            Toast.makeText(this@AddstudentActivity, "Uploaded", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                }catch(ex : Exception){
-                    withContext(Main){
-                        Log.d("Mero Error ", ex.localizedMessage)
-                        Toast.makeText(this@AddstudentActivity, ex.localizedMessage, Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-
-        }
-    }
 
 
     private fun bitmapToFile(

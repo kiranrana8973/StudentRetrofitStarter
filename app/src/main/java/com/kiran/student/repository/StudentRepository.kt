@@ -14,7 +14,8 @@ import retrofit2.http.Multipart
 
 class StudentRepository : MyApiRequest() {
 
-    private val studentAPI = ServiceBuilder.buildService(StudentAPI::class.java)
+    private val studentAPI =
+        ServiceBuilder.buildService(StudentAPI::class.java)
 
     suspend fun insertStudent(student: Student): AddStudentResponse {
         return apiRequest {
@@ -34,7 +35,8 @@ class StudentRepository : MyApiRequest() {
         }
     }
 
-    suspend fun uploadImage(id: String, body: MultipartBody.Part): ImageResponse {
+    suspend fun uploadImage(id: String, body: MultipartBody.Part)
+    : ImageResponse {
         return apiRequest {
             studentAPI.uploadImage(ServiceBuilder.token!!, id, body)
         }
