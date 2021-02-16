@@ -1,6 +1,7 @@
 package com.kiran.student.repository
 
 import android.app.Service
+import android.content.Context
 import com.kiran.student.api.MyApiRequest
 import com.kiran.student.api.ServiceBuilder
 import com.kiran.student.api.StudentAPI
@@ -9,6 +10,7 @@ import com.kiran.student.response.AddStudentResponse
 import com.kiran.student.response.DeleteStudentResponse
 import com.kiran.student.response.ImageResponse
 import com.kiran.student.response.StudentResponse
+import com.kiran.student.roomdb.StudentDB
 import okhttp3.MultipartBody
 import retrofit2.http.Multipart
 
@@ -27,6 +29,16 @@ class StudentRepository : MyApiRequest() {
         return apiRequest {
             studentAPI.getAllStudents(ServiceBuilder.token!!)
         }
+    }
+
+
+    suspend fun insertBulkStudent(context : Context, students : List<Student>){
+        StudentDB.getInstance(context).getStudentDAO().insertBulkStudent(students )
+    }
+
+    // get data from repository
+    suspend fun getAllStudentsFromRoom(context : Context) : MutableList<Student>{
+        return StudentDB.getInstance(context).getStudentDAO().getAllStudents()
     }
 
     suspend fun deleteStudents(id: String): DeleteStudentResponse {

@@ -214,48 +214,6 @@ class AddstudentActivity : AppCompatActivity() {
         }
     }
 
-//    private fun uploadImage(studentId: String) {
-//        if (imageUrl != null) {
-//            val file = File(imageUrl!!)
-//
-//            val reqFile =
-//                RequestBody.create(MediaType.parse("multipart/form-data"), file)
-//            val body =
-//                MultipartBody.Part.createFormData("file", file.name, reqFile)
-//
-//            val api = ServiceBuilder.buildService(StudentAPI::class.java)
-//            val call = api.uploadImage(ServiceBuilder.token!!, studentId, body)
-//
-//            call.enqueue(object : retrofit2.Callback<ImageResponse> {
-//                override fun onResponse(
-//                    call: Call<ImageResponse>,
-//                    response: Response<ImageResponse>
-//                ) {
-//                    if (response.isSuccessful) {
-//                        val res = response.body()!!
-//                    } else {
-//                        Toast.makeText(
-//                            this@AddstudentActivity,
-//                            "Error body ${response.code()} , msg ${response.message()}",
-//                            Toast.LENGTH_SHORT
-//                        ).show()
-//                        return
-//                    }
-//                }
-//
-//                override fun onFailure(call: Call<ImageResponse>, t: Throwable) {
-//                    Toast.makeText(
-//                        this@AddstudentActivity,
-//                        "a Error ${t.message}",
-//                        Toast.LENGTH_SHORT
-//                    )
-//                        .show()
-//                }
-//            })
-//        }
-//    }
-
-
     private fun bitmapToFile(
         bitmap: Bitmap,
         fileNameToSave: String

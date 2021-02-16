@@ -18,7 +18,7 @@ import java.lang.Exception
 
 class ViewStudentActivity : AppCompatActivity() {
 
-    private lateinit var recyclerView : RecyclerView
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,18 +33,24 @@ class ViewStudentActivity : AppCompatActivity() {
             try {
                 val studentRepository = StudentRepository()
                 val response = studentRepository.getAllStudents()
-                if(response.success==true){
-                    // Put all the student details in lstStudents
-                    val lstStudents = response.data
-                    withContext(Main){
-                        recyclerView.adapter = StudentAdapter(this@ViewStudentActivity,lstStudents!!)
+                if (response.success == true) {
+                    // Insert all the students in room database
+                    studentRepository.insertBulkStudent(this@ViewStudentActivity, response.data!!)
+
+                    // get data from room database
+                    val lstStudents = studentRepository.getAllStudentsFromRoom(this@ViewStudentActivity )
+                    withContext(Main) {
+                        recyclerView.adapter =
+                            StudentAdapter(this@ViewStudentActivity, lstStudents!!)
                         recyclerView.layoutManager = LinearLayoutManager(this@ViewStudentActivity)
                     }
                 }
-            }catch(ex : Exception){
-                withContext(Main){
-                    Toast.makeText(this@ViewStudentActivity,
-                        "Error : ${ex.toString()}", Toast.LENGTH_SHORT).show()
+            } catch (ex: Exception) {
+                withContext(Main) {
+                    Toast.makeText(
+                        this@ViewStudentActivity,
+                        "Error : ${ex.toString()}", Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
