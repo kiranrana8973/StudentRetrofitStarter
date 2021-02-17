@@ -8,6 +8,8 @@ interface StudentDAO {
     @Insert
     suspend fun insertStudent(student : Student)
 
+    val a : Int
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertBulkStudent(student: List<Student>)
 
