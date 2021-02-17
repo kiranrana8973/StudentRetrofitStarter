@@ -19,4 +19,7 @@ interface StudentDAO {
 
     @Delete
     suspend fun DeleteStudent(student : Student)
+
+    @Query("DELETE FROM Student")
+    suspend fun DeleteAllStudents()
 }

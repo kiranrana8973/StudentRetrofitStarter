@@ -44,7 +44,6 @@ class LoginActivity : AppCompatActivity() {
 
         etUsername.setText("kiran")
         etPassword.setText("kiran123")
-
         btnLogin.setOnClickListener {
             if(validate()){
                 login()

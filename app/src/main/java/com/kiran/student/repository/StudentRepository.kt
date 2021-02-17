@@ -31,8 +31,10 @@ class StudentRepository : MyApiRequest() {
         }
     }
 
-
     suspend fun insertBulkStudent(context : Context, students : List<Student>){
+        // Delete all students
+        StudentDB.getInstance(context).getStudentDAO().DeleteAllStudents()
+        // Insert all data in database
         StudentDB.getInstance(context).getStudentDAO().insertBulkStudent(students )
     }
 

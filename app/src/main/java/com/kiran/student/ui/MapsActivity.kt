@@ -14,6 +14,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private var lstLatitudeLongitude = ArrayList<LatitudeLongitude>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
@@ -32,11 +33,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 MarkerOptions().position(LatLng(location.latitude, location.longitude))
                     .title(location.markerName)
             )
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(location.latitude, location.longitude)))
-
         }
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(27.704675, 85.329471)))
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(15F))
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(27.704675, 85.329471),15F))
+//        mMap.animateCamera(CameraUpdateFactory.zoomTo(17F),2000F,null)
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(17F),2000,null);
         mMap.uiSettings.isZoomControlsEnabled = true
     }
 }
