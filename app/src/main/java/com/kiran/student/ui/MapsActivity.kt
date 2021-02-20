@@ -23,6 +23,21 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
     }
 
+//    override fun onMapReady(googleMap: GoogleMap) {
+//        mMap = googleMap
+//
+//        mMap.addMarker(
+//            MarkerOptions().position(LatLng(27.7061949, 85.3300394))
+//                .title("Hamro College")
+//                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
+//        )
+//
+//        mMap.animateCamera(
+//            CameraUpdateFactory.newLatLngZoom(LatLng(27.7061949, 85.3300394), 17F), 5000, null
+//        )
+//        mMap.uiSettings.isZoomControlsEnabled = true
+//    }
+
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         lstLatitudeLongitude.add(LatitudeLongitude(27.7061949, 85.3300394, "Hamro college"))
@@ -32,11 +47,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             mMap.addMarker(
                 MarkerOptions().position(LatLng(location.latitude, location.longitude))
                     .title(location.markerName)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
             )
         }
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(27.704675, 85.329471),15F))
-//        mMap.animateCamera(CameraUpdateFactory.zoomTo(17F),2000F,null)
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(17F),2000,null);
+//        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(27.704675, 85.329471),15F))
+//        mMap.animateCamera(CameraUpdateFactory.zoomTo(15F),5000,null);
+
+
+        mMap.animateCamera(
+            CameraUpdateFactory.newLatLngZoom(LatLng(27.7061949, 85.3300394),16F), 4000, null
+
+        )
         mMap.uiSettings.isZoomControlsEnabled = true
     }
 }

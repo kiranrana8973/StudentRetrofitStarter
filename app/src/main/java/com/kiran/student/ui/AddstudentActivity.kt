@@ -152,7 +152,6 @@ class AddstudentActivity : AppCompatActivity() {
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-
         super.onActivityResult(requestCode, resultCode, data)
 
         if (resultCode == Activity.RESULT_OK) {
@@ -167,9 +166,7 @@ class AddstudentActivity : AppCompatActivity() {
                 imageUrl = cursor.getString(columnIndex)
                 imgProfile.setImageBitmap(BitmapFactory.decodeFile(imageUrl))
                 cursor.close()
-
             } else if (requestCode == REQUEST_CAMERA_CODE && data != null) {
-
                 val imageBitmap = data.extras?.get("data") as Bitmap
                 val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
                 val file = bitmapToFile(imageBitmap, "$timeStamp.jpg")
@@ -193,7 +190,6 @@ class AddstudentActivity : AppCompatActivity() {
                     val studentRepository = StudentRepository()
                     val response = studentRepository.uploadImage(studentId, body)
                     if (response.success == true) {
-
                         withContext(Main) {
                             Toast.makeText(this@AddstudentActivity, "Uploaded", Toast.LENGTH_SHORT)
                                 .show()

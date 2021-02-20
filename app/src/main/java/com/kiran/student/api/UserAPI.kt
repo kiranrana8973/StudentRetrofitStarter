@@ -16,8 +16,7 @@ interface UserAPI {
         @Field("username") username : String,
         @Field("password") password : String,
     ) : Response<LoginResponse>
-
-
+    
     @POST("auth/register")
     suspend fun registerUser(
         @Body user : User
