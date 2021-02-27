@@ -24,40 +24,40 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     // Load single locations
-    override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
-
-        mMap.addMarker(
-            MarkerOptions().position(LatLng(27.7061949, 85.3300394))
-                .title("Hamro College")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
-        )
-
-        mMap.animateCamera(
-            CameraUpdateFactory.newLatLngZoom(LatLng(27.7061949, 85.3300394), 13F), 4000, null
-        )
-        mMap.uiSettings.isZoomControlsEnabled = true
-    }
-
-//
-//     //Load multiple locations
 //    override fun onMapReady(googleMap: GoogleMap) {
 //        mMap = googleMap
-//        lstLatitudeLongitude.add(LatitudeLongitude(27.7061949, 85.3300394, "Hamro college"))
-//        lstLatitudeLongitude.add(LatitudeLongitude(27.704675, 85.329471, "Gopal dai ko chatamari"))
 //
-//        for (location in lstLatitudeLongitude) {
-//            mMap.addMarker(
-//                MarkerOptions().position(LatLng(location.latitude, location.longitude))
-//                    .title(location.markerName)
-//                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
-//            )
-//        }
+//        mMap.addMarker(
+//            MarkerOptions().position(LatLng(27.7061949, 85.3300394))
+//                .title("Hamro College")
+//                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+//        )
+//
 //        mMap.animateCamera(
-//            CameraUpdateFactory.newLatLngZoom(LatLng(27.7061949, 85.3300394),16F), 4000, null
+//            CameraUpdateFactory.newLatLngZoom(LatLng(27.7061949, 85.3300394), 13F), 4000, null
 //        )
 //        mMap.uiSettings.isZoomControlsEnabled = true
 //    }
+
+
+     //Load multiple locations
+    override fun onMapReady(googleMap: GoogleMap) {
+        mMap = googleMap
+        lstLatitudeLongitude.add(LatitudeLongitude(27.7061949, 85.3300394, "Hamro college"))
+        lstLatitudeLongitude.add(LatitudeLongitude(27.704675, 85.329471, "Gopal dai ko chatamari"))
+
+        for (location in lstLatitudeLongitude) {
+            mMap.addMarker(
+                MarkerOptions().position(LatLng(location.latitude, location.longitude))
+                    .title(location.markerName)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+            )
+        }
+        mMap.animateCamera(
+            CameraUpdateFactory.newLatLngZoom(LatLng(27.7061949, 85.3300394),16F), 4000, null
+        )
+        mMap.uiSettings.isZoomControlsEnabled = true
+    }
 }
 
 //        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(27.704675, 85.329471),15F))

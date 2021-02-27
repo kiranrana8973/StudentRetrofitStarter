@@ -10,10 +10,10 @@
     tools:context=".ui.LoginActivity">
 
     <ImageView
-        android:layout_width="178dp"
-        android:layout_height="166dp"
+        android:layout_width="303dp"
+        android:layout_height="77dp"
         android:scaleType="fitXY"
-        android:src="@drawable/logo" />
+        android:src="@drawable/logoo" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"

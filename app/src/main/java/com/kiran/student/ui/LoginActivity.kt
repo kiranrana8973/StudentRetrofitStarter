@@ -40,10 +40,10 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         binding()
-        checkRunTimePermission()
+      //  checkRunTimePermission()
 
-        etUsername.setText("kiran")
-        etPassword.setText("kiran123")
+//        etUsername.setText("kiran")
+//        etPassword.setText("kiran123")
         btnLogin.setOnClickListener {
             if(validate()){
                 login()
