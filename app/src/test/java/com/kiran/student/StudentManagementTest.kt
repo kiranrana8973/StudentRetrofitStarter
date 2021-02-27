@@ -27,7 +27,8 @@ class StudentManagementTest {
     @Test
     fun registerUser() = runBlocking {
         val user =
-            User(fname = "test", lname = "test", username = "testuser", password = "testpassword")
+            User(fname = "test", lname = "test",
+                username = "zxxczsasdxcx", password = "testpassword")
         userRepository = UserRepository()
         val response = userRepository.registerUser(user)
         val expectedResult = true
@@ -39,9 +40,11 @@ class StudentManagementTest {
     @Test
     fun addStudent() = runBlocking {
         userRepository = UserRepository()
+        studentRepository = StudentRepository()
+
         val student =
             Student(fullname = "fullName", age = 33, gender = "gender", address = "address")
-        studentRepository = StudentRepository()
+
         ServiceBuilder.token ="Bearer " + userRepository.checkUser("kiran","kiran123").token
         val expectedResult = true
         val actualResult = studentRepository.insertStudent(student).success

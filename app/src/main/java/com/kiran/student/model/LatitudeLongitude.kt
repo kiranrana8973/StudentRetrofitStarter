@@ -5,3 +5,4 @@ data class LatitudeLongitude(
     val longitude: Double,
     val markerName : String
 )
+

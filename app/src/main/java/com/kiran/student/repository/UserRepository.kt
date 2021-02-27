@@ -8,7 +8,8 @@ import com.kiran.student.response.LoginResponse
 
 class UserRepository : MyApiRequest(){
 
-    private val myApi = ServiceBuilder.buildService(UserAPI::class.java)
+    private val myApi =
+        ServiceBuilder.buildService(UserAPI::class.java)
 
     suspend fun checkUser(username : String,password :String) : LoginResponse{
         return apiRequest {

@@ -1,2 +1,5 @@
+include ':studentwear'
+include ':studentwear'
+include ':studentwatch'
 include ':app'
 rootProject.name = "StudentAPI"
