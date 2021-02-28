@@ -36,7 +36,7 @@ class TestLogin {
             .perform(click())
 
         onView(withId(R.id.tvUsername))
-            .check(matches(withText("Welcome Kiran1")))
+            .check(matches(withText("Welcome Kiran")))
 
     }
 }

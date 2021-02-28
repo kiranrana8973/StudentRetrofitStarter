@@ -19,7 +19,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var etUsername: EditText
     private lateinit var etPassword: EditText
     private lateinit var etConfirmPassword: EditText
-    private lateinit var btnAddStudent: Button
+    private lateinit var btnAddUser: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +30,8 @@ class RegisterActivity : AppCompatActivity() {
         etUsername = findViewById(R.id.etUsername)
         etPassword = findViewById(R.id.etPassword)
         etConfirmPassword = findViewById(R.id.etConfirmPassword)
-        btnAddStudent = findViewById(R.id.btnAddStudent)
-        btnAddStudent.setOnClickListener {
+        btnAddUser = findViewById(R.id.btnAddUser)
+        btnAddUser.setOnClickListener {
 
             val fname = etFname.text.toString()
             val lname = etLname.text.toString()
