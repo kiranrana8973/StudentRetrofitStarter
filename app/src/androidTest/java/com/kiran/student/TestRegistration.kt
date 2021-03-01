@@ -21,7 +21,6 @@ class TestRegistration {
     fun testLoginUI() {
         Espresso.onView(ViewMatchers.withId(R.id.etFname))
             .perform(ViewActions.typeText("kiran"))
-
         Espresso.onView(ViewMatchers.withId(R.id.etLname))
             .perform(ViewActions.typeText("rana"))
         Espresso.onView(ViewMatchers.withId(R.id.etUsername))
