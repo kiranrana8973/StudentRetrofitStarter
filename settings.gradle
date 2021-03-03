@@ -1,3 +1,4 @@
+include ':mysharedlibrary'
 include ':studentwear'
 include ':studentwear'
 include ':studentwear'
