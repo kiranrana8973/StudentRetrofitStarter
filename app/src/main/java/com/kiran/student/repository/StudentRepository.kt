@@ -55,4 +55,6 @@ class StudentRepository : MyApiRequest() {
             studentAPI.uploadImage(ServiceBuilder.token!!, id, body)
         }
     }
+
+
 }

@@ -13,7 +13,6 @@ import org.junit.Test
 
 class TestRegistration {
 
-
     @get:Rule
     val testRule = ActivityScenarioRule(RegisterActivity::class.java)
 
@@ -34,9 +33,7 @@ class TestRegistration {
         Espresso.onView(ViewMatchers.withId(R.id.btnAddUser))
             .perform(ViewActions.click())
 
-
 //        Espresso.onView(ViewMatchers.withId(R.id.tvUsername))
 //            .check(ViewAssertions.matches(ViewMatchers.withText("Welcome Kiran1")))
-
     }
 }

@@ -35,8 +35,11 @@ class TestLogin {
         onView(withId(R.id.btnLogin))
             .perform(click())
 
+        Thread.sleep(2000)
+
         onView(withId(R.id.tvUsername))
             .check(matches(withText("Welcome Kiran")))
 
     }
 }
+
