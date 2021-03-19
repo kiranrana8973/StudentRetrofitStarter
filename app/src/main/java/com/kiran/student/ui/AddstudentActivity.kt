@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
+import android.webkit.MimeTypeMap
 import android.widget.*
 import com.google.android.material.textfield.TextInputEditText
 import com.kiran.student.R
@@ -25,6 +26,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType
 import okhttp3.MultipartBody
+import okhttp3.Request
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Response
@@ -176,14 +178,33 @@ class AddstudentActivity : AppCompatActivity() {
         }
     }
 
+    fun getMimeType(file: File): String? {
+        var type: String? = null
+        val extension = MimeTypeMap.getFileExtensionFromUrl(file.path)
+        if (extension != null) {
+            type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension)
+        }
+        return type
+    }
 
     private fun uploadImage(studentId: String) {
         if (imageUrl != null) {
             val file = File(imageUrl!!)
+
+            val mimeType = getMimeType(file);
+//            val requestBody: RequestBody =
+//                MultipartBody.Builder().setType(MultipartBody.FORM)
+//                    .addFormDataPart("file", file.name,sourceFile.asRequestBody(mimeType.toMediaTypeOrNull()))
+//                    .build()
+
+//            val request: Request = Request.Builder().url(serverURL).post(requestBody).build()
+
+
             val reqFile =
-                RequestBody.create(MediaType.parse("multipart/form-data"), file)
+                RequestBody.create(MediaType.parse(mimeType!!), file)
             val body =
-                MultipartBody.Part.createFormData("file", file.name, reqFile)
+                MultipartBody.
+                Part.createFormData("file", file.name, reqFile)
 
             CoroutineScope(Dispatchers.IO).launch {
                 try {
