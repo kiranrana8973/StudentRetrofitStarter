@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.provider.MediaStore
+import android.webkit.MimeTypeMap
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -43,27 +44,35 @@ class NimanActivity : AppCompatActivity() {
             saveData()
         }
     }
-
+    fun getMimeType(file: File): String? {
+        var type: String? = null
+        val extension = MimeTypeMap.getFileExtensionFromUrl(file.path)
+        if (extension != null) {
+            type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension)
+        }
+        return type
+    }
     private fun saveData() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val file = File(imageUrl!!)
+                val mimeType = getMimeType(file);
                 val reqFile =
-                    RequestBody.create(MediaType.parse("multipart/form-data"), file)
+                    RequestBody.create(MediaType.parse(mimeType!!), file)
                 val body =
                     MultipartBody.Part.createFormData("pimage", file.name, reqFile)
 
-                val fileBody = RequestBody.create(MediaType.parse("image/png"), file)
+                val fileBody = RequestBody.create(MediaType.parse(mimeType), file)
 
                 val pname = RequestBody.create(MediaType.parse("multipart/form-data"), "Kiran")
                 val pdesc = RequestBody.create(MediaType.parse("multipart/form-data"), "asdasdasd")
                 val pprice = RequestBody.create(MediaType.parse("multipart/form-data"), "234234")
 
                 val map: MutableMap<String, RequestBody> = mutableMapOf()
-                map.put("pname", pname)
-                map.put("pname", pdesc)
-                map.put("pname", pprice)
-                map.put("file\"; filename=\"pp.png\"", fileBody);
+                map["pname"] = pname
+                map["pname"] = pdesc
+                map["pname"] = pprice
+                map["file\"; filename=\"pp.png\""] = fileBody;
 
                 val repository = NimanRepository()
                 val response = repository.add(pname, pdesc, pprice, body)

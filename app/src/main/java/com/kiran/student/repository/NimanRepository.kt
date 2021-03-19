@@ -8,6 +8,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
 class NimanRepository : MyApiRequest() {
+    val token = "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDUzZmU3YzkzOTE2OTIzNDA0MGVmMDYiLCJpYXQiOjE2MTYxMTc0MTZ9.CSDftvQPotD1SUs3ypMj9LvmokUm8dxj6I_Hr7iSg8"
     val nimanSirAPI =
         ServiceBuilder.buildService(NimanSirAPI::class.java)
 
