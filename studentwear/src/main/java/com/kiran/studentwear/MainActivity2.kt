@@ -1,6 +1,5 @@
 package com.kiran.studentwear
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.support.wearable.activity.WearableActivity
 

@@ -12,6 +12,7 @@ object MyServiceBuilder {
     var token: String? = null
     private val okHttp = OkHttpClient.Builder()
 
+
     //Create retrofit builder
     private val retrofitBuilder = Retrofit.Builder()
         .baseUrl(BASE_URL)

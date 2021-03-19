@@ -47,7 +47,7 @@ class AddstudentActivity : AppCompatActivity() {
     private lateinit var rdoOthers: RadioButton
     private lateinit var btnSave: Button
     private lateinit var imgProfile: ImageView
-
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_addstudent)
