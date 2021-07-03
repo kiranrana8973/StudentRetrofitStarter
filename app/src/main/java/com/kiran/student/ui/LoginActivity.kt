@@ -40,12 +40,12 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         binding()
-      //  checkRunTimePermission()
+        checkRunTimePermission()
 
-//        etUsername.setText("kiran")
-//        etPassword.setText("kiran123")
+        etUsername.setText("kiran")
+        etPassword.setText("kiran123")
         btnLogin.setOnClickListener {
-            if(validate()){
+            if (validate()) {
                 login()
             }
         }
@@ -55,19 +55,20 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun validate() :Boolean{
+    private fun validate(): Boolean {
         var flag = true
-        if(TextUtils.isEmpty(etUsername.text)){
+        if (TextUtils.isEmpty(etUsername.text)) {
             etUsername.error = "Enter username"
             etUsername.requestFocus()
             flag = false
-        }else if(TextUtils.isEmpty(etPassword.text)){
+        } else if (TextUtils.isEmpty(etPassword.text)) {
             etPassword.error = "Enter password"
             etPassword.requestFocus()
             flag = false
         }
         return flag
     }
+
     private fun binding() {
         etUsername = findViewById(R.id.etUsername)
         etPassword = findViewById(R.id.etPassword)
@@ -137,10 +138,10 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
             } catch (ex: Exception) {
-                    withContext(Dispatchers.Main) {
-                        Log.d("Error",ex.toString())
+                withContext(Dispatchers.Main) {
+                    Log.d("Error", ex.toString())
 
-                        Toast.makeText(
+                    Toast.makeText(
                         this@LoginActivity,
                         ex.toString(),
                         Toast.LENGTH_SHORT
@@ -149,6 +150,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun saveUsernamePassword() {
         val username = etUsername.text.toString()
         val password = etPassword.text.toString()
